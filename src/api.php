@@ -1,4 +1,5 @@
 <?php
+use Vendor\UnitTesting\UserManager;
 require_once '../class/UserManager.php';
 header("Content-Type: application/json");
 
