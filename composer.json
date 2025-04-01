@@ -1,0 +1,17 @@
+{
+    "name": "vendor/unit_testing",
+    "description": "unit_testing php",
+    "type": "project",
+    "require-dev": {
+        "phpunit/phpunit": "^11.5"
+    },
+    "autoload": {
+        "psr-4": {
+            "Vendor\\UnitTesting\\": "class/"
+        }
+    },
+    "scripts": {
+        "tests":"./vendor/bin/phpunit tests"
+    },
+    "require": {}
+}
