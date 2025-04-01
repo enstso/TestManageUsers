@@ -5,24 +5,12 @@ services:
       context: docker/php
       dockerfile: Dockerfile
     volumes:
-      - ./src:/var/www/html/
+      - .:/var/www/html/
     ports:
       - '80:80'
     depends_on:
       - mariadb
     restart: always
-  test:
-    build:
-      context: docker/php
-      dockerfile: Dockerfile
-    volumes:
-      - .:/var/www/html/
-    ports:
-      - '8080:80'
-    depends_on:
-      - mariadb
-    restart: always
-
   mariadb:
     image: mariadb:latest
     restart: always

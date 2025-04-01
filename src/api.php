@@ -1,5 +1,5 @@
 <?php
-require_once 'class/UserManager.php';
+require_once '../class/UserManager.php';
 header("Content-Type: application/json");
 
 $method = $_SERVER['REQUEST_METHOD'];

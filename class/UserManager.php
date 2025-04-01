@@ -1,4 +1,8 @@
 <?php
+namespace Vendor\UnitTesting;
+use PDO;
+use Exception;
+use \InvalidArgumentException;
 class UserManager {
     private PDO $db;
 
