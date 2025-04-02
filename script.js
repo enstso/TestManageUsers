@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const userIdField = document.getElementById("userId");
 
     function fetchUsers() {
-        fetch("api.php")
+        fetch("src/api.php")
             .then(response => response.json())
             .then(users => {
                 userList.innerHTML = "";
@@ -25,7 +25,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const userId = userIdField.value;
 
         if (userId) {
-            fetch("api.php", {
+            fetch("src/api.php", {
                 method: "PUT",
                 body: new URLSearchParams({ id: userId, name, email }),
                 headers: { "Content-Type": "application/x-www-form-urlencoded" }
@@ -35,7 +35,7 @@ document.addEventListener("DOMContentLoaded", function () {
                 userIdField.value = "";
             });
         } else {
-            fetch("api.php", {
+            fetch("src/api.php", {
                 method: "POST",
                 body: new URLSearchParams({ name, email }),
                 headers: { "Content-Type": "application/x-www-form-urlencoded" }
@@ -53,7 +53,7 @@ document.addEventListener("DOMContentLoaded", function () {
     };
 
     window.deleteUser = function (id) {
-        fetch(`api.php?id=${id}`, { method: "DELETE" })
+        fetch(`src/api.php?id=${id}`, { method: "DELETE" })
             .then(() => fetchUsers());
     };
 
