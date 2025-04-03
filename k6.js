@@ -19,6 +19,7 @@ export default function () {
   const formdata = new FormData();
 formdata.append("name", "test");
 formdata.append("email", "test@outllok.fr");
+formdata.append("date", "2023-10-01");
   let res = http.post("http://host.docker.internal:80/",formdata);  //J'utilise un conteneur pour pouvoir requété localhost:8000, je dois passer par cette url
   
   // Vérification du statut HTTP
