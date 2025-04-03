@@ -4,7 +4,7 @@ document.addEventListener("DOMContentLoaded", function () {
   const userIdField = document.getElementById("userId");
 
   function fetchUsers() {
-    fetch("src/api.php")
+    fetch("src/apiex3.php")
       .then((response) => response.json())
       .then((users) => {
         userList.innerHTML = "";
@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", function () {
     const userId = userIdField.value;
 
     if (userId) {
-      fetch("src/api.php", {
+      fetch("src/apiex3.php", {
         method: "PUT",
         body: new URLSearchParams({
           id: userId,
@@ -46,7 +46,7 @@ document.addEventListener("DOMContentLoaded", function () {
         userIdField.value = "";
       });
     } else {
-      fetch("src/api.php", {
+      fetch("src/apiex3.php", {
         method: "POST",
         body: new URLSearchParams({ name, email, date: dateInput.value }),
         headers: { "Content-Type": "application/x-www-form-urlencoded" },
@@ -70,7 +70,7 @@ document.addEventListener("DOMContentLoaded", function () {
   };
 
   window.deleteUser = function (id) {
-    fetch(`src/api.php?id=${id}`, { method: "DELETE" }).then(() =>
+    fetch(`src/apiex3.php?id=${id}`, { method: "DELETE" }).then(() =>
       fetchUsers()
     );
   };
