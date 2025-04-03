@@ -16,14 +16,24 @@ export const options = {
 
 // Comportement simulé des utilisateurs
 export default function () {
-  const formdata = new FormData();
-formdata.append("name", "test");
-formdata.append("email", "test@outllok.fr");
-formdata.append("date", "2023-10-01");
-  let res = http.post("http://host.docker.internal:80/",formdata);  //J'utilise un conteneur pour pouvoir requété localhost:8000, je dois passer par cette url
-  
+  // Données du formulaire sous forme d'un objet
+  let formdata = {
+    name: "test",
+    email: "test@outlook.fr",
+    date: "2023-10-01",
+  };
+
+  // Spécification des en-têtes pour le multipart/form-data
+  let params = {
+    headers: {
+      "Content-Type": "application/x-www-form-urlencoded",
+    },
+  };
+
+  // Envoi de la requête POST
+  let res = http.post("http://host.docker.internal:80/indexex3.html", formdata, params);
   // Vérification du statut HTTP
-  check(res, { "status was 400": (r) => r.status === 400 });
-  
+// Vérification du statut HTTP
+check(res, { "status was 200": (r) => r.status === 200 });  
   sleep(1); // Pause de 1 seconde entre chaque requête
 }

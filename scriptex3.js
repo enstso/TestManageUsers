@@ -11,7 +11,7 @@ document.addEventListener("DOMContentLoaded", function () {
         users.forEach((user) => {
           const li = document.createElement("li");
           li.innerHTML = `${user.name} (${user.email} | ${user.date})
-                        <button onclick="editUser(${user.id}, '${user.name}', '${user.email}')">✏️</button>
+                        <button onclick="editUser(${user.id}, '${user.name}', '${user.email}', '${user.date}')">✏️</button>
                         <button onclick="deleteUser(${user.id})">❌</button>`;
           userList.appendChild(li);
         });
@@ -29,7 +29,7 @@ document.addEventListener("DOMContentLoaded", function () {
       dateInput.value = today;
     }
     const userId = userIdField.value;
-
+    console.log(dateInput);
     if (userId) {
       fetch("src/apiex3.php", {
         method: "PUT",
@@ -57,15 +57,11 @@ document.addEventListener("DOMContentLoaded", function () {
     }
   });
 
-  window.editUser = function (id, name, email) {
+  window.editUser = function (id, name, email, date) {
     document.getElementById("name").value = name;
     document.getElementById("email").value = email;
-    const dateInput = (document.getElementById("date").value = date);
-    const today = new Date().toISOString().split("T")[0];
-    // Si la date est vide, on met la date d'aujourd'hui
-    if (!dateInput.value) {
-      dateInput.value = today;
-    }
+    document.getElementById("date").value = date;
+   
     userIdField.value = id;
   };
 
