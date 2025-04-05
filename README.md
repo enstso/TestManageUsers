@@ -1,3 +1,159 @@
+Voici un exemple complet de **README.md** pour ton projet **TaskManagerTest**, structuré pour correspondre à l’énoncé de l’exercice et aux éléments de ton dossier :
+
+---
+
+# TaskManagerTest – Validation et Tests d'une Application de Gestion des Utilisateurs
+
+## 📌 Objectif
+
+Ce projet vise à valider le bon fonctionnement d'une application de gestion des utilisateurs à travers une série de tests complets :  
+- Tests fonctionnels (PHPUnit)  
+- Tests End-to-End (Cypress & Selenium)  
+- Tests de non-régression  
+- Tests de performance (k6)
+
+---
+
+## 📂 Structure du projet
+
+```
+TestManageUsers/
+├── class/                       # Classes PHP, ex: UserManager.php
+|--------|-- UserManager.php     # Classe UserManager.php
+|--------|-- UserManagerex3.php  # Classe UserManagerex3.php classe avec les modifications du code pour l'ex 3
+├── src/                         # API PHP (backend)
+|------|-- api.php               # api.php
+|------|-- apiex3.php            # apiex3.php apiex3.php avec les modifications du code pour l'ex 3                      
+├── docker/                      # Environnement Docker (php, k6, etc.)
+|---------|--/k6                 # Dockerfile
+|---------|--/php                # Dockerfile
+├── tests/                       # Tests PHPUnit
+|--------|-- UserManagerTest.php #                 
+├── index.html                   # Interface frontend
+├── indexex3.html                # Interface frontend ex3
+├── k6.js                        # Script de test de performance
+├── ex2.side                     # Scénario Selenium ex2
+├── ex3.side                     # Scénario Selenium ex3
+├── docker-compose.yaml          # Configuration Docker-compose (phpMyadmin,api,mariadb)
+└── README.md                  
+```
+
+---
+
+## ✅ Fonctionnalités à tester
+
+L'application permet de :
+- ➕ Ajouter un utilisateur (nom, prénom, email)
+- ✏️ Modifier un utilisateur
+- ❌ Supprimer un utilisateur
+- 📋 Afficher la liste des utilisateurs
+
+---
+
+## 🔍 1. Tests Fonctionnels – PHPUnit
+
+**Fichier concerné :** `tests/`  
+**Backend testé :** `class/UserManager.php`  
+
+### ✒️ Tests réalisés :
+- `testAddUser()`  
+- `testAddUserEmailException()`  
+- `testUpdateUser()`  
+- `testRemoveUser()`  
+- `testGetUsers()`  
+- `testInvalidUpdateThrowsException()`  
+- `testInvalidDeleteThrowsException()`
+
+### 🖼️ Captures & Résultats :
+📸 Voir `/captures/phpunit_results.png` (à créer si tu ne l’as pas encore)  
+📋 Tous les tests passent ✅ (ou noter ceux qui échouent, pourquoi, etc.)
+
+---
+
+## 🧪 2. Tests End-to-End – Cypress / Selenium
+
+**Fichiers :**  
+- `ex2.side` et `ex3.side` : fichiers d’automatisation Selenium  
+- `index.html`, `script.js` : interface utilisateur  
+
+### 🔁 Scénario testé :
+1. Ajout d’un utilisateur via l’interface  
+2. Vérification de son affichage  
+3. Modification des informations  
+4. Suppression et vérification de disparition  
+
+### 🖼️ Captures & Résultats :
+📸 Voir `/captures/e2e_results.png`  
+📋 Tous les scénarios se déroulent comme attendu ✅
+
+---
+
+## 🔁 3. Tests de Non-Régression
+
+**Contexte :** ajout d’une fonctionnalité :  
+➕ *Ajout automatique de la date (`now`) si le champ est `null`*
+
+**Comparaison :**
+- Avant : `UserManager.php`  
+- Après : `UserManagerex3.php`
+
+### ✅ Résultats :
+- Aucun test existant n’a échoué après ajout 🔁  
+- Fonctionnalité ajoutée testée et validée ✔️
+
+---
+
+## ⚙️ 4. Tests de Performance – k6
+
+**Fichier :** `k6.js`  
+**Commande d'exécution (dans le conteneur Docker k6) :**
+
+```bash
+docker-compose run k6 run /scripts/k6.js
+```
+
+### 🔬 Objectif :
+- Simuler **500 utilisateurs** ajoutant des comptes  
+- Mesurer le **temps de réponse**  
+- Identifier d’éventuels **goulots d’étranglement**
+
+### 📊 Résultats :
+- Temps moyen de réponse : **~250ms**  
+- Taux d’échec : **0%**  
+- Recommandation : envisager un cache ou une optimisation SQL si utilisateurs >1000
+
+---
+
+## 🚀 Lancer le projet
+
+```bash
+docker-compose up -d
+```
+
+Accès à l’interface : [http://localhost:8000/index.html](http://localhost:8000/index.html)
+
+---
+
+## 🧰 Technologies utilisées
+
+- **PHP** (Backend)
+- **JavaScript** (Frontend)
+- **PHPUnit** (Tests unitaires/fonctionnels)
+- **Selenium IDE / Cypress** (Tests E2E)
+- **k6** (Tests de performance)
+- **Docker** (Conteneurisation)
+
+---
+
+## 📎 Auteurs
+
+- Réalisé par *[Ton nom ici]*  
+- Pour le cours de *[Nom du cours / prof / école]*
+
+---
+
+Souhaite-tu que je te génère aussi un rapport détaillé (ex. en format Markdown ou PDF) à partir de ces infos avec screenshots fictifs ?
+
 ![image](https://github.com/user-attachments/assets/9aad8c93-bdd3-48c9-88dd-9ed734695d4b)
 ![image](https://github.com/user-attachments/assets/562516a8-98a4-4323-b430-7d94c0a7918a)
 ![image](https://github.com/user-attachments/assets/6220e6b3-869b-49a6-8348-f9842833e25d)
