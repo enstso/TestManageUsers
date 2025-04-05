@@ -37,11 +37,6 @@ TestManageUsers/
 ├── docker-compose.yaml          # Configuration Docker-compose (phpMyadmin,api,mariadb)
 └── README.md                  
 ```
-
----
-
-## ✅ Fonctionnalités à tester
-
 L'application permet de :
 - ➕ Ajouter un utilisateur (name, email)
 - ✏️ Modifier un utilisateur
@@ -50,8 +45,32 @@ L'application permet de :
 
 ---
 
+## Installation
+
+git clone du projet :
+
+```bash
+git clone https://github.com/enstso/TestManageUsers.git
+```
+aller dans le dossier du projet :
+
+```bash
+cd TestManageUsers
+```
+build les images :
+
+```bash
+docker-compose build
+```
+Lancement des containers :
+
+```bash
+docker-compose up -d
+```
+Aller à l'url phpMyadmin [http://localhost:8081/](http://localhost:8081/) pour créer la table users.
+
 credentials phpMyAdmin
-host:mariadb
+server:mariadb
 username:root
 password:root
 
@@ -60,10 +79,51 @@ Dans le fichier [database.sql](database.sql), mon script de base données.
 Nous créeons la table users dans phpMyadmin:
 ![image](https://github.com/user-attachments/assets/9aad8c93-bdd3-48c9-88dd-9ed734695d4b)
 
+
+Depuis son terminal rentrer dans le container de l'api :
+
+```bash
+docker exec -it  taskmanagertest-api-1 bash
+```
+Installer les dépendances, création du dossier vendor :
+
+```bash
+composer install
+```
+
+Vérification :
+Aller à l'url (http://localhost/)[http://localhost/] :
+
+![image](https://github.com/user-attachments/assets/562516a8-98a4-4323-b430-7d94c0a7918a)
+
+Dans postman, tester l'api :
+
+![image](https://github.com/user-attachments/assets/6220e6b3-869b-49a6-8348-f9842833e25d)
+---
+
 ## 🔍 1. Tests Fonctionnels – PHPUnit
 
-**Fichier concerné :** `tests/`  
+**Fichier concerné :** `tests/UserManagerTest.php`  
 **Backend testé :** `class/UserManager.php`  
+
+**Rappel** pour accéder au conteneur :
+
+```bash
+docker exec -it  taskmanagertest-api-1 bash
+```
+
+Depuis le conteneur :
+
+```bash
+./vendor/bin/phpunit tests
+```
+ou 
+
+```bash
+composer tests
+```
+
+Les explications des tests sont en commentaire, dans le fichier [UserManagerTest.php](UserManagerTest.php).
 
 ### ✒️ Tests réalisés :
 - `testAddUser()` : success
@@ -74,16 +134,15 @@ Nous créeons la table users dans phpMyadmin:
 - `testInvalidUpdateThrowsException()` : non testable  
 - `testInvalidDeleteThrowsException()` : non testable
 
-### 🖼️ Captures & Résultats :
-📸 Voir `/captures/phpunit_results.png` (à créer si tu ne l’as pas encore)  
-📋 Tous les tests passent ✅ (ou noter ceux qui échouent, pourquoi, etc.)
+Résultats des tests:
+![image](https://github.com/user-attachments/assets/c4e3709e-7068-463e-b827-7fe00fe1a310)
 
 ---
 
 ## 🧪 2. Tests End-to-End – Cypress / Selenium
 
 **Fichiers :**  
-- `ex2.side` et `ex3.side` : fichiers d’automatisation Selenium  
+- `ex2.side` : fichier d’automatisation Selenium  
 - `index.html`, `script.js` : interface utilisateur  
 
 ### 🔁 Scénario testé :
@@ -92,8 +151,49 @@ Nous créeons la table users dans phpMyadmin:
 3. Modification des informations  
 4. Suppression et vérification de disparition  
 
+**Faire un truncate de la table users avant de faire les nouveax tests** :
+
+![image](https://github.com/user-attachments/assets/8174472f-2773-4c6a-8a62-297d24192233)
+
+
 ### 🖼️ Captures & Résultats :
-📸 Voir `/captures/e2e_results.png`  
+Dans selenium, on se mets en Capture pour les tests suivants :
+
+addUser, on insère un utilisateur en respectant les champs suivant :
+
+![image](https://github.com/user-attachments/assets/d9354263-0c53-453e-9d5a-d9e0afd4fd65)
+
+updateUser :
+
+Nous Ajoutons l'utilisateur à modifier et le modifions :
+
+![image](https://github.com/user-attachments/assets/819da3f8-a9fa-43b4-b1c6-34e5ddda4c8b)
+
+Modification valide de l'utilisateur :
+
+![image](https://github.com/user-attachments/assets/9f505e44-b5ae-441d-a4d5-0ab491a8c779)
+
+deleteUser :
+
+Ajout de l'utilisateur à supprimer :
+
+![image](https://github.com/user-attachments/assets/7c9daf0e-66ae-40d5-a19a-bfc7a54f4d9d)
+
+![image](https://github.com/user-attachments/assets/471dbf7e-5d82-4c96-a934-22d767baf488)
+
+Nous supprimons l'utilisateur en cliquant sur la croix :
+
+![image](https://github.com/user-attachments/assets/f9ea9be7-56cd-4256-8897-49c497ec0b73)
+
+Avant de relancer les tests, faisons un truncate, de la table :
+
+![image](https://github.com/user-attachments/assets/8174472f-2773-4c6a-8a62-297d24192233)
+
+Résultats des tests :
+
+![image](https://github.com/user-attachments/assets/b32c9cf3-92f1-4f48-8752-c0066b912d2c)
+
+
 📋 Tous les scénarios se déroulent comme attendu ✅
 
 ---
@@ -105,7 +205,11 @@ Nous créeons la table users dans phpMyadmin:
 
 **Comparaison :**
 - Avant : `UserManager.php`  
-- Après : `UserManagerex3.php`
+- Après : `UserManagerex3.php` Ajout du champs date
+  
+Création de la nouvelle table usersex3 :
+
+![image](https://github.com/user-attachments/assets/7d36fd62-7c33-4e99-b776-f26ea80b42ad)
 
 ### ✅ Résultats :
 - Aucun test existant n’a échoué après ajout 🔁  
@@ -165,20 +269,11 @@ Accès à l’interface : [http://localhost:8000/index.html](http://localhost:80
 Souhaite-tu que je te génère aussi un rapport détaillé (ex. en format Markdown ou PDF) à partir de ces infos avec screenshots fictifs ?
 
 
-![image](https://github.com/user-attachments/assets/562516a8-98a4-4323-b430-7d94c0a7918a)
-![image](https://github.com/user-attachments/assets/6220e6b3-869b-49a6-8348-f9842833e25d)
 
-![image](https://github.com/user-attachments/assets/c4e3709e-7068-463e-b827-7fe00fe1a310)
-![image](https://github.com/user-attachments/assets/d9354263-0c53-453e-9d5a-d9e0afd4fd65)
 
-![image](https://github.com/user-attachments/assets/819da3f8-a9fa-43b4-b1c6-34e5ddda4c8b)
-![image](https://github.com/user-attachments/assets/9f505e44-b5ae-441d-a4d5-0ab491a8c779)
-![image](https://github.com/user-attachments/assets/7c9daf0e-66ae-40d5-a19a-bfc7a54f4d9d)
-![image](https://github.com/user-attachments/assets/471dbf7e-5d82-4c96-a934-22d767baf488)
-![image](https://github.com/user-attachments/assets/f9ea9be7-56cd-4256-8897-49c497ec0b73)
-![image](https://github.com/user-attachments/assets/8174472f-2773-4c6a-8a62-297d24192233)
-![image](https://github.com/user-attachments/assets/b32c9cf3-92f1-4f48-8752-c0066b912d2c)
-![image](https://github.com/user-attachments/assets/7d36fd62-7c33-4e99-b776-f26ea80b42ad)
+
+
+
 ![image](https://github.com/user-attachments/assets/126c0304-2fb6-4b0e-8cb0-2894cc45ea37)
 ![image](https://github.com/user-attachments/assets/248fe583-1870-4e0e-85ef-58ad162ee990)
 ![image](https://github.com/user-attachments/assets/9a438eb4-2230-4590-a62e-0daa5c720b96)
