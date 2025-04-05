@@ -244,7 +244,7 @@ Résultats des tests :
 
 **Comparaison :**
 - Avant : `UserManager.php`  
-- Après : `UserManagerex3.php` Ajout du champs date dans les différentes méthodes. Voir le fichier [UserManagerex3.php](UserManagerex3.php)
+- Après : `UserManagerex3.php` Ajout du champs date dans les différentes méthodes. Voir le fichier [UserManagerex3.php](class/UserManagerex3.php)
 - Avant `api.php` Ajout du champ, pour les différentes méthodes.
 - Après `apiex3.php` Ajout du champ date, pour les différentes méthodes. Voir le fichier [apiex3.php](src/apiex3.php)
 - Avant : `index.html`
@@ -334,7 +334,7 @@ Lancement des tests :
 
 **Fichier :** [k6.js](k6.js)
 
-**Le [Dockerfile](/docker/k6/Dockerfile), il faudra le déplacer à la racine du projet.**
+**Le [Dockerfile](docker/k6/Dockerfile), il faudra le déplacer à la racine du projet.**
 
 Build l'image :
 
