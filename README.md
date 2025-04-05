@@ -1,8 +1,8 @@
-Voici un exemple complet de **README.md** pour ton projet **TaskManagerTest**, structuré pour correspondre à l’énoncé de l’exercice et aux éléments de ton dossier :
+Voici un exemple complet de **README.md** pour ton projet **TestManageUsers**, structuré pour correspondre à l’énoncé de l’exercice et aux éléments de ton dossier :
 
 ---
 
-# TaskManagerTest – Validation et Tests d'une Application de Gestion des Utilisateurs
+# TestManageUsers – Validation et Tests d'une Application de Gestion des Utilisateurs
 
 ## 📌 Objectif
 
@@ -28,7 +28,7 @@ TestManageUsers/
 |---------|--/k6                 # Dockerfile
 |---------|--/php                # Dockerfile
 ├── tests/                       # Tests PHPUnit
-|--------|-- UserManagerTest.php #                 
+|--------|-- UserManagerTest.php # test de la classe UserManager.php               
 ├── index.html                   # Interface frontend
 ├── indexex3.html                # Interface frontend ex3
 ├── k6.js                        # Script de test de performance
@@ -43,12 +43,22 @@ TestManageUsers/
 ## ✅ Fonctionnalités à tester
 
 L'application permet de :
-- ➕ Ajouter un utilisateur (nom, prénom, email)
+- ➕ Ajouter un utilisateur (name, email)
 - ✏️ Modifier un utilisateur
 - ❌ Supprimer un utilisateur
 - 📋 Afficher la liste des utilisateurs
 
 ---
+
+credentials phpMyAdmin
+host:mariadb
+username:root
+password:root
+
+Dans le fichier ![database.sql](database.sql), mon script de base données.
+
+Nous créeons la table users dans phpMyadmin:
+![image](https://github.com/user-attachments/assets/9aad8c93-bdd3-48c9-88dd-9ed734695d4b)
 
 ## 🔍 1. Tests Fonctionnels – PHPUnit
 
@@ -56,13 +66,13 @@ L'application permet de :
 **Backend testé :** `class/UserManager.php`  
 
 ### ✒️ Tests réalisés :
-- `testAddUser()`  
-- `testAddUserEmailException()`  
-- `testUpdateUser()`  
-- `testRemoveUser()`  
-- `testGetUsers()`  
-- `testInvalidUpdateThrowsException()`  
-- `testInvalidDeleteThrowsException()`
+- `testAddUser()` : success
+- `testAddUserEmailException()` : success  
+- `testUpdateUser()`  : success
+- `testRemoveUser()`  : success
+- `testGetUsers()`  : success
+- `testInvalidUpdateThrowsException()` : non testable  
+- `testInvalidDeleteThrowsException()` : non testable
 
 ### 🖼️ Captures & Résultats :
 📸 Voir `/captures/phpunit_results.png` (à créer si tu ne l’as pas encore)  
@@ -154,7 +164,7 @@ Accès à l’interface : [http://localhost:8000/index.html](http://localhost:80
 
 Souhaite-tu que je te génère aussi un rapport détaillé (ex. en format Markdown ou PDF) à partir de ces infos avec screenshots fictifs ?
 
-![image](https://github.com/user-attachments/assets/9aad8c93-bdd3-48c9-88dd-9ed734695d4b)
+
 ![image](https://github.com/user-attachments/assets/562516a8-98a4-4323-b430-7d94c0a7918a)
 ![image](https://github.com/user-attachments/assets/6220e6b3-869b-49a6-8348-f9842833e25d)
 
