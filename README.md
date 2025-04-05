@@ -287,9 +287,7 @@ Il a bien été supprimé :
 
 **Faire un truncate de la table usersex3 avant lancer les  tests**
 
-![image](https://github.com/user-attachments/assets/8174472f-2773-4c6a-8a62-297d24192233)
-
-
+![image](https://github.com/user-attachments/assets/bea17a44-1f6b-4517-9e20-86b2f2c61e30)
 
 Lancement des tests :
 
