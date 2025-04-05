@@ -136,7 +136,7 @@ ou
 composer tests
 ```
 
-Les explications des tests sont en commentaire, dans le fichier [UserManagerTest.php](UserManagerTest.php).
+Les explications des tests sont en commentaire, dans le fichier [UserManagerTest.php](tests/UserManagerTest.php).
 
 ### ✒️ Tests réalisés :
 - `testAddUser()` : success
