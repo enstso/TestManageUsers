@@ -1,7 +1,3 @@
-Voici un exemple complet de **README.md** pour ton projet **TestManageUsers**, structuré pour correspondre à l’énoncé de l’exercice et aux éléments de ton dossier :
-
----
-
 # TestManageUsers – Validation et Tests d'une Application de Gestion des Utilisateurs
 
 ## 📌 Objectif
