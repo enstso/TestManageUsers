@@ -36,7 +36,7 @@ TestManageUsers/
 |--------|-- UserManagerex3.php  # Classe UserManagerex3.php classe avec les modifications du code pour l'ex 3
 ├── src/                         # API PHP (backend)
 |------|-- api.php               # api.php
-|------|-- apiex3.php            # apiex3.php apiex3.php avec les modifications du code pour l'ex 3                      
+|------|-- apiex3.php            # apiex3.php api.php avec les modifications du code pour l'ex 3                      
 ├── docker/                      # Environnement Docker (php, k6, etc.)
 |---------|--/k6                 # Dockerfile
 |---------|--/php                # Dockerfile
@@ -88,7 +88,8 @@ password:root
 
 Dans le fichier [database.sql](database.sql), mon script de base données.
 
-Nous créeons la table users dans phpMyadmin:
+Nous créeons la table users dans phpMyadmin :
+
 ![image](https://github.com/user-attachments/assets/9aad8c93-bdd3-48c9-88dd-9ed734695d4b)
 
 
