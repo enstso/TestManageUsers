@@ -162,7 +162,7 @@ Résultats des tests :
 3. Modification des informations  
 4. Suppression et vérification de disparition  
 
-**Faire un truncate de la table users avant de faire les nouveax tests** :
+**Faire un truncate de la table users avant de faire les nouveuax tests** :
 
 ![image](https://github.com/user-attachments/assets/8174472f-2773-4c6a-8a62-297d24192233)
 
@@ -221,12 +221,17 @@ Résultats des tests :
 - Après : `indexex3.html` Ajout d'un input type Date au formulaire. [indexex3.html](indexex3.html)
 - Avant : `script.js`
 - Après : `scriptex3.js` modification du code afin d'avoir la date, implémtation de la logique si null on prends la date now. [scriptex3.js](scriptex3.js)
+- Avant et après : `database.sql` ajout de la table usersex3. [database.sql](database.sql)
+
+Commentaires dans le code, pour d'avantage d'explications.
   
 Création de la nouvelle table usersex3 :
 
 ![image](https://github.com/user-attachments/assets/7d36fd62-7c33-4e99-b776-f26ea80b42ad)
 
 ### ✅ Résultats :
+
+L'url : [http://localhost/indexex3.html](http://localhost/indexex3.html)
 
 Nous créeons, un nouveau projet, selenium pour l'exercice 3 et mettons en mode capture, pour chaque test.
 
@@ -259,14 +264,30 @@ Mise à jour de l'utilisateur :
 
 ![image](https://github.com/user-attachments/assets/4f570749-5403-46d9-b62c-a9f587e8d978)
 
+Il est bien mis à jour :
+
 ![image](https://github.com/user-attachments/assets/f3365341-b85d-4dc9-aed4-b68a92cf0f23)
 
+Ajout de l'utilisateur à supprimer :
+
 ![image](https://github.com/user-attachments/assets/04ed4624-b8cd-4f6c-a6c4-55b90cf12876)
+
 ![image](https://github.com/user-attachments/assets/32e39733-7694-4f83-97d1-4b6d6ca99a2f)
+
+Il a bien été supprimé :
+
+![image](https://github.com/user-attachments/assets/f3365341-b85d-4dc9-aed4-b68a92cf0f23)
+
+**Faire un truncate de la table usersex3 avant lancer les  tests**
+
+![image](https://github.com/user-attachments/assets/8174472f-2773-4c6a-8a62-297d24192233)
+
+
+
+Lancement des tests :
 
 ![image](https://github.com/user-attachments/assets/bcdb0ba8-8549-4b49-b408-fe7e2c276068)
 
-![image](https://github.com/user-attachments/assets/51389831-9750-4dca-81c9-f4d686eff874)
 
 - Aucun test existant n’a échoué après ajout 🔁  
 - Fonctionnalité ajoutée testée et validée ✔️
@@ -276,27 +297,44 @@ Mise à jour de l'utilisateur :
 
 ## ⚙️ 4. Tests de Performance – k6
 
-**Fichier :** `k6.js`  
-**Commande d'exécution (dans le conteneur Docker k6) :**
-
-```bash
-docker-compose run k6 run /scripts/k6.js
-```
-
 ### 🔬 Objectif :
 - Simuler **500 utilisateurs** ajoutant des comptes  
 - Mesurer le **temps de réponse**  
 - Identifier d’éventuels **goulots d’étranglement**
 
-### 📊 Résultats :
-- Temps moyen de réponse : **~250ms**  
-- Taux d’échec : **0%**  
-- Recommandation : envisager un cache ou une optimisation SQL si utilisateurs >1000
+**Fichier :** [k6.js](k6.js)
+
+**Le [Dockerfile](/docker/k6/Dockerfile), il faudra le déplacer à la racine du projet.**
+
+Build l'image :
+
+```bash
+  docker build -t dock-k6 .
+```
+Lancement du conteneur k6 :
+
+```bash
+docker run --rm -v ${PWD} -p 8080:8080 dock-k6
+```
+
+![image](https://github.com/user-attachments/assets/51389831-9750-4dca-81c9-f4d686eff874)
 
 
 
+Nous pouvons voir que parfois ça passe en timeout, due au trop grand nombre de requête :
 
 ![image](https://github.com/user-attachments/assets/84d0b47c-3594-444c-9d33-49e1555f0d1e)
 
 ![image](https://github.com/user-attachments/assets/ab9fd4e7-0035-4709-9751-e513d16d516f)
+
+
+
+### 📊 Résultats :
+
 ![image](https://github.com/user-attachments/assets/7b504e86-fb10-4094-8e54-c12534dd1c33)
+
+Nous constatons, qu'il ya des échecs, Cela peut-être contraignant pour le projet, les contres-mesures suivantes sont nécessaires :
+
+- Dans le Back-end bloquer un trop grand nombre de requêtes simultanées afin de protéger notre back-end pour éviter qu'il plante et éviter d'avoir des fausses données dans notre bdd
+- Bloquer un trop grand nombre de requête venant de la même ip, protection possible dans le back, comme de le front,
+- bloquage sur l'ip etc...
