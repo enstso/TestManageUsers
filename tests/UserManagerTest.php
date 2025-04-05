@@ -1,5 +1,6 @@
 <?php
 namespace Vendor\UnitTesting\tests;
+
 use PDOException;
 use PHPUnit\Framework\TestCase;
 use Vendor\UnitTesting\UserManager;
@@ -10,92 +11,94 @@ class UserManagerTest extends TestCase
 {
     private UserManager $userManager;
 
-    // This method sets up the necessary environment before each test is executed
+    // Cette méthode est exécutée avant chaque test : elle prépare l’environnement de test
     protected function setUp(): void
     {
-        // Create a new instance of UserManager for each test
+        // On crée une nouvelle instance de UserManager pour chaque test
         $this->userManager = new UserManager();
     }
 
-    // Test case for adding a new user
+    // Test de l’ajout d’un utilisateur
     public function testAddUser(): void
     {
-        // Add a new user and verify it's successfully added to the database
+        // On ajoute un utilisateur et on vérifie qu’il a bien été ajouté à la base
         $this->userManager->addUser("John Doe", "john@example.com");
-        $users = $this->userManager->getUsers(); // Fetch all users
-        $position = count($users) - 1; // Get the position of the last added user
-        $id = count($users); // ID of the last added user
-        $this->assertCount(count($users), $users); // Assert that the number of users is correct
-        $user = $this->userManager->getUser($id); // Fetch the added user by ID
-        // Verify that the added user's name and email match the values
+        $users = $this->userManager->getUsers(); // Récupère tous les utilisateurs
+        $position = count($users) - 1; // Position du dernier utilisateur ajouté
+        $id = count($users); // ID du dernier utilisateur (supposé égal au nombre total)
+        $this->assertCount(count($users), $users); // Vérifie que le nombre d'utilisateurs est correct
+        $user = $this->userManager->getUser($id); // Récupère l'utilisateur par son ID
+        // Vérifie que le nom et l’email de l’utilisateur ajouté correspondent
         $this->assertEquals($user['name'], $users[$position]['name']);
         $this->assertEquals($user['email'], $users[$position]['email']);
     }
 
-    // Test case for adding a user with an invalid email
+    // Test de l’ajout d’un utilisateur avec une adresse email invalide
     public function testAddUserEmailException(): void
     {
-        // Expect an exception when adding a user with an invalid email format
+        // On s’attend à une exception si l’email n’est pas au bon format
         $this->expectException(InvalidArgumentException::class);
         $this->userManager->addUser("Johnny", "invalid-email");
     }
 
-    // Test case for updating a user's information
+    // Test de la mise à jour d’un utilisateur
     public function testUpdateUser(): void
     {
-        // Add a user, then update their details and verify the update
+        // On ajoute un utilisateur, puis on le modifie, et on vérifie que les changements sont bien pris en compte
         $this->userManager->addUser("Jane Bech", "jane@example.com");
-        $usersBeforeUpdate = $this->userManager->getUsers(); // Fetch users before update
-        $position = count($usersBeforeUpdate) - 1; // Get the position of the user to update
-        $id  = count($usersBeforeUpdate); // ID of the user to update
-        $this->userManager->updateUser($id, "Janou Smith", "janou.smith@example.com"); // Update user info
-        $usersAfterUpdate = $this->userManager->getUsers(); // Fetch all users after the update
-        $userUpdated = $this->userManager->getUser($id); // Fetch updated user by ID
-        // Verify that the updated user's name and email match the new values
+        $usersBeforeUpdate = $this->userManager->getUsers(); // Récupère les utilisateurs avant modification
+        $position = count($usersBeforeUpdate) - 1; // Position de l’utilisateur à modifier
+        $id  = count($usersBeforeUpdate); // ID de l’utilisateur à modifier
+        $this->userManager->updateUser($id, "Janou Smith", "janou.smith@example.com"); // Mise à jour
+        $usersAfterUpdate = $this->userManager->getUsers(); // Récupère les utilisateurs après la mise à jour
+        $userUpdated = $this->userManager->getUser($id); // Récupère l’utilisateur modifié
+        // Vérifie que le nom et l’email sont bien mis à jour
         $this->assertEquals($userUpdated['name'], $usersAfterUpdate[$position]['name']);
         $this->assertEquals($userUpdated['email'], $usersAfterUpdate[$position]['email']);
     }
 
-    // Test case for removing a user from the database
+    // Test de suppression d’un utilisateur
     public function testRemoveUser(): void
     {
-        // Add a user, then remove them and verify that the user is deleted
+        // On ajoute un utilisateur, puis on le supprime, et on vérifie qu’il est bien retiré de la base
         $this->userManager->addUser("Alice", "alice@example.com");
-        $usersBeforeRemove = $this->userManager->getUsers(); // Fetch users before removal
-        $countUsers = count($usersBeforeRemove); // Store the count of users before removal
-        $this->assertCount($countUsers, $usersBeforeRemove); // Assert the number of users before removal
-        $id  = count($usersBeforeRemove); // ID of the user to remove
-        $this->userManager->removeUser($id); // Remove the user
-        $usersAfterRemove = $this->userManager->getUsers(); // Fetch users after removal
-        // Verify that the number of users decreased by 1 after removal
+        $usersBeforeRemove = $this->userManager->getUsers(); // Avant suppression
+        $countUsers = count($usersBeforeRemove); // Nombre d’utilisateurs avant
+        $this->assertCount($countUsers, $usersBeforeRemove); // Vérifie le compte initial
+        $id  = count($usersBeforeRemove); // ID de l’utilisateur à supprimer
+        $this->userManager->removeUser($id); // Suppression
+        $usersAfterRemove = $this->userManager->getUsers(); // Après suppression
+        // Vérifie que le nombre d’utilisateurs a diminué de 1
         $this->assertCount($countUsers - 1, $usersAfterRemove);
     }
 
-    // Test case for fetching the list of users
+    // Test de récupération des utilisateurs
     public function testGetUsers(): void
     {
-        $usersBeforeAdd = $this->userManager->getUsers(); // Fetch users before adding new ones
-        $countUsers = count($usersBeforeAdd); // Store the initial count of users
-        $this->assertCount($countUsers, $usersBeforeAdd); // Assert the count of users before adding new ones
-        // Add two new users and verify they are added to the list
+        $usersBeforeAdd = $this->userManager->getUsers(); // Avant ajout
+        $countUsers = count($usersBeforeAdd); // Nombre d’utilisateurs initial
+        $this->assertCount($countUsers, $usersBeforeAdd); // Vérifie ce nombre
+        // Ajoute deux nouveaux utilisateurs
         $this->userManager->addUser("User One", "user1@example.com");
         $this->userManager->addUser("User Two", "user2@example.com");
-        $usersAfterAdd = $this->userManager->getUsers(); // Fetch users after adding new ones
-        // Assert that the number of users is correctly updated
+        $usersAfterAdd = $this->userManager->getUsers(); // Après ajout
+        // Vérifie que deux utilisateurs supplémentaires ont été ajoutés
         $this->assertCount(count($usersBeforeAdd) + 2, $usersAfterAdd);
     }
 
-    // Test case for updating a non-existent user (should throw an exception)
+    // Test de mise à jour d’un utilisateur inexistant (devrait générer une exception, mais elle n’existe pas dans le code de la classe userManager)
     public function testInvalidUpdateThrowsException(): void
     {
-        // Attempt to update a user that doesn't exist (ID 99), should throw an exception
+        // Tente de mettre à jour un utilisateur qui n’existe pas (ID 99)
+        // Une exception devrait être levée, mais elle ne l’est pas dans la version actuelle
         $this->userManager->updateUser(99, "Ghost", "ghost@example.com");
     }
 
-    // Test case for removing a non-existent user (should throw an exception)
+    // Test de suppression d’un utilisateur inexistant (devrait générer une exception, mais elle n’existe pas dans le code de la classe userManager)
     public function testInvalidDeleteThrowsException(): void
     {
-        // Attempt to remove a user that doesn't exist (ID 99), should throw an exception
+        // Tente de supprimer un utilisateur qui n’existe pas (ID 99)
+        // Une exception devrait être levée, mais elle ne l’est pas dans la version actuelle
         $this->userManager->removeUser(99);
     }
 }
