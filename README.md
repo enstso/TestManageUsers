@@ -147,6 +147,31 @@ Les explications des tests sont en commentaire, dans le fichier [UserManagerTest
 - `testInvalidUpdateThrowsException()` : non testable  (gestion d'erreurs non présente dans la classe)
 - `testInvalidDeleteThrowsException()` : non testable    (gestion d'erreurs non présente dans la classe)
 
+Pour faire les tests, il faudrait gérer les erreurs, de la façon suivante :
+```php
+public function removeUser(int $id): void {
+        $stmt = $this->db->prepare("DELETE FROM users WHERE id = :id");
+        if (!$stmt->execute(['id' => $id])) {
+            throw new Exception("Erreur lors de la suppression de l'utilisateur avec l'ID $id.");
+        }
+
+        if ($stmt->rowCount() === 0) {
+            throw new Exception("Aucun utilisateur trouvé avec l'ID $id.");
+        }
+    }
+
+    public function updateUser(int $id, string $name, string $email): void {
+        $stmt = $this->db->prepare("UPDATE users SET name = :name, email = :email WHERE id = :id");
+        if (!$stmt->execute(['id' => $id, 'name' => $name, 'email' => $email])) {
+            throw new Exception("Erreur lors de la mise à jour de l'utilisateur avec l'ID $id.");
+        }
+
+        if ($stmt->rowCount() === 0) {
+            throw new Exception("Aucun utilisateur trouvé avec l'ID $id.");
+        }
+    }
+```
+
 Résultats des tests :
 
 ![image](https://github.com/user-attachments/assets/c4e3709e-7068-463e-b827-7fe00fe1a310)
