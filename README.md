@@ -47,6 +47,8 @@ TestManageUsers/
 ├── k6.js                        # Script de test de performance
 ├── ex2.side                     # Scénario Selenium ex2
 ├── ex3.side                     # Scénario Selenium ex3
+├── script.js                    # js du front
+├── scriptex3.js                 # js du front exercice 3
 ├── docker-compose.yaml          # Configuration Docker-compose (phpMyadmin, api, mariadb)
 └── README.md                  
 ```
@@ -217,6 +219,8 @@ Résultats des tests :
 **Comparaison :**
 - Avant : `UserManager.php`  
 - Après : `UserManagerex3.php` Ajout du champs date dans les différentes méthodes. Voir le fichier [UserManagerex3.php](UserManagerex3.php)
+- Avant `api.php` Ajout du champ, pour les différentes méthodes.
+- Après `apiex3.php` Ajout du champ date, pour les différentes méthodes. Voir le fichier [apiex3.php](src/apiex3.php)
 - Avant : `index.html`
 - Après : `indexex3.html` Ajout d'un input type date au formulaire. Voir le fichier [indexex3.html](indexex3.html)
 - Avant : `script.js`
