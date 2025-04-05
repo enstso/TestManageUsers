@@ -47,7 +47,7 @@ TestManageUsers/
 ├── k6.js                        # Script de test de performance
 ├── ex2.side                     # Scénario Selenium ex2
 ├── ex3.side                     # Scénario Selenium ex3
-├── docker-compose.yaml          # Configuration Docker-compose (phpMyadmin,api,mariadb)
+├── docker-compose.yaml          # Configuration Docker-compose (phpMyadmin, api, mariadb)
 └── README.md                  
 ```
 
@@ -141,8 +141,8 @@ Les explications des tests sont en commentaire, dans le fichier [UserManagerTest
 - `testUpdateUser()`  : success
 - `testRemoveUser()`  : success
 - `testGetUsers()`  : success
-- `testInvalidUpdateThrowsException()` : non testable  
-- `testInvalidDeleteThrowsException()` : non testable
+- `testInvalidUpdateThrowsException()` : non testable  (gestion d'erreurs non présente dans la classe)
+- `testInvalidDeleteThrowsException()` : non testable    (gestion d'erreurs non présente dans la classe)
 
 Résultats des tests :
 
@@ -218,13 +218,15 @@ Résultats des tests :
 - Avant : `UserManager.php`  
 - Après : `UserManagerex3.php` Ajout du champs date dans les différentes méthodes. Voir le fichier [UserManagerex3.php](UserManagerex3.php)
 - Avant : `index.html`
-- Après : `indexex3.html` Ajout d'un input type Date au formulaire. [indexex3.html](indexex3.html)
+- Après : `indexex3.html` Ajout d'un input type date au formulaire. Voir le fichier [indexex3.html](indexex3.html)
 - Avant : `script.js`
-- Après : `scriptex3.js` modification du code afin d'avoir la date, implémtation de la logique si null on prends la date now. [scriptex3.js](scriptex3.js)
-- Avant et après : `database.sql` ajout de la table usersex3. [database.sql](database.sql)
+- Après : `scriptex3.js` modification du code afin d'avoir la date, implémtation de la logique si null on prends la date now. Voir le fichier [scriptex3.js](scriptex3.js)
+- Avant et après : `database.sql` table usersex3 ajout du champ date + fonction CURRENT_DATE. Voir le fichier [database.sql](database.sql)
 
 Commentaires dans le code, pour d'avantage d'explications.
-  
+
+Pour la date du jour, une double sécurité, pour le null sur la date à now, si on passe par l'api c'est la fonction sql CURRENT_DATE qui gère cela, dans le cas ou l'on passe par le front c'est le scriptex3.js qui gère cela.
+
 Création de la nouvelle table usersex3 :
 
 ![image](https://github.com/user-attachments/assets/7d36fd62-7c33-4e99-b776-f26ea80b42ad)
