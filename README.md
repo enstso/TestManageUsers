@@ -55,7 +55,7 @@ host:mariadb
 username:root
 password:root
 
-Dans le fichier ![database.sql](database.sql), mon script de base données.
+Dans le fichier [database.sql](database.sql), mon script de base données.
 
 Nous créeons la table users dans phpMyadmin:
 ![image](https://github.com/user-attachments/assets/9aad8c93-bdd3-48c9-88dd-9ed734695d4b)
